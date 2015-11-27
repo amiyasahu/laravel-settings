@@ -1,0 +1,27 @@
+{
+  "name": "amiyasahu/laravel5-settings",
+  "keywords": [
+    "laravel",
+    "config",
+    "settings"
+  ],
+  "description": "Deadly simple Settings API for Laravel 5 - Create, Read, Update and Delete settings stored in files using JSON",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Amiya Sahu",
+      "email": "amiya053@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Amiya\\Setting\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.5.9",
+    "illuminate/support": "~5",
+    "illuminate/filesystem": "~5"
+  }
+}
