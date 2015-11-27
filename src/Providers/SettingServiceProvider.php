@@ -1,5 +1,6 @@
 <?php namespace Amiya\Setting\Providers;
 
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
 use Amiya\Setting\Foundation\JsonSetting;
 
@@ -11,9 +12,9 @@ class SettingServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot( Kernel $kernel )
     {
-
+        $kernel->pushMiddleware( '\Amiya\Setting\Middleware\SaveSettingsMiddleware' );
     }
 
     /**
@@ -28,7 +29,8 @@ class SettingServiceProvider extends ServiceProvider
         ] );
 
         $this->app->bind( 'Amiya\Setting\Foundation\Setting', function ( $app ) {
-            return new JsonSetting( $app , config( 'setting.path' ) . '/' .config( 'setting.filename' ) );
+            return new JsonSetting( $app, config( 'setting.path' ) . '/' . config( 'setting.filename' ) );
         } );
+
     }
 }

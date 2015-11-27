@@ -10,7 +10,7 @@
          *
          * @var
          */
-        protected $app ;
+        protected $app;
 
         /**
          * The settings data.
@@ -40,9 +40,9 @@
          */
         protected $randomDefaultValue;
 
-        function __construct($app)
+        function __construct( $app )
         {
-            $this->app = $app ;
+            $this->app = $app;
             $this->randomDefaultValue = microtime( true );
         }
 
@@ -56,7 +56,7 @@
          */
         public function get( $key, $default = null )
         {
-            if(is_null($key)){
+            if ( is_null( $key ) ) {
                 return $this->all();
             }
 
@@ -70,8 +70,8 @@
                     return value( $default );
                 }
 
-                if(!is_string($value)){
-                    return $value ;
+                if ( !is_string( $value ) ) {
+                    return $value;
                 }
 
                 switch ( strtolower( $value ) ) {
@@ -92,7 +92,7 @@
                         return null;
                 }
 
-                return $value ;
+                return $value;
             }
 
             return $default;
@@ -109,7 +109,7 @@
         {
             $this->loadSettingsIfNotLoaded();
 
-            return $this->randomDefaultValue !== array_get( $this->settings, $key , $this->randomDefaultValue );
+            return $this->randomDefaultValue !== array_get( $this->settings, $key, $this->randomDefaultValue );
         }
 
         /**

@@ -11,10 +11,10 @@ class JsonSetting extends Setting
      * @param $path
      * @param $filename
      */
-    public function __construct( $app , $path = null )
+    public function __construct( $app, $path = null )
     {
-        parent::__construct($app);
-        $this->fileSystem = $app['files'];
+        parent::__construct( $app );
+        $this->fileSystem = $app[ 'files' ];
         $this->setPath( $path ? : storage_path() . '/settings.json' );
         $this->loadSettingsIfNotLoaded();
     }
@@ -29,7 +29,7 @@ class JsonSetting extends Setting
         if ( !$this->fileSystem->exists( $path ) ) {
 
             //File does not exists ,create a new one
-            $result = $this->fileSystem->put( $path, json_encode( [], JSON_PRETTY_PRINT ) );
+            $result = $this->fileSystem->put( $path, json_encode( [ ], JSON_PRETTY_PRINT ) );
 
             if ( $result === false ) {
                 throw new \InvalidArgumentException( "Could not write to {$path}." );
