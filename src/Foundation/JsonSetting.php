@@ -1,11 +1,9 @@
 <?php namespace Amiya\Setting\Foundation;
 
-use Illuminate\Filesystem\Filesystem;
-
 class JsonSetting extends Setting
 {
 
-    protected $files;
+    protected $fileSystem;
 
     protected $path;
 
@@ -13,10 +11,10 @@ class JsonSetting extends Setting
      * @param $path
      * @param $filename
      */
-    public function __construct( Filesystem $files, $path = null )
+    public function __construct( $app , $path = null )
     {
-        parent::__construct();
-        $this->files = $files;
+        parent::__construct($app);
+        $this->fileSystem = $app['files'];
         $this->setPath( $path ? : storage_path() . '/settings.json' );
         $this->loadSettingsIfNotLoaded();
     }
@@ -28,17 +26,17 @@ class JsonSetting extends Setting
      */
     public function setPath( $path )
     {
-        if ( !$this->files->exists( $path ) ) {
+        if ( !$this->fileSystem->exists( $path ) ) {
 
             //File does not exists ,create a new one
-            $result = $this->files->put( $path, json_encode( [], JSON_PRETTY_PRINT ) );
+            $result = $this->fileSystem->put( $path, json_encode( [], JSON_PRETTY_PRINT ) );
 
             if ( $result === false ) {
                 throw new \InvalidArgumentException( "Could not write to {$path}." );
             }
         }
 
-        if ( !$this->files->isWritable( $path ) ) {
+        if ( !$this->fileSystem->isWritable( $path ) ) {
             throw new \InvalidArgumentException( "{$path} is not writable." );
         }
 
@@ -50,7 +48,7 @@ class JsonSetting extends Setting
      */
     protected function load()
     {
-        $contents = $this->files->get( $this->path );
+        $contents = $this->fileSystem->get( $this->path );
 
         $data = json_decode( $contents, true );
 
@@ -72,7 +70,7 @@ class JsonSetting extends Setting
 
         $contents = json_encode( $this->settings, JSON_PRETTY_PRINT );
 
-        $this->files->put( $this->path, $contents );
+        $this->fileSystem->put( $this->path, $contents );
     }
 
 }

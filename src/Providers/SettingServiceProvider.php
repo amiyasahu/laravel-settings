@@ -28,7 +28,7 @@ class SettingServiceProvider extends ServiceProvider
         ] );
 
         $this->app->bind( 'Amiya\Setting\Foundation\Setting', function ( $app ) {
-            return new JsonSetting( $this->app['files'] , config( 'setting.path' ) . '/' .config( 'setting.filename' ) );
+            return new JsonSetting( $app , config( 'setting.path' ) . '/' .config( 'setting.filename' ) );
         } );
     }
 }

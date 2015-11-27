@@ -6,6 +6,13 @@
     abstract class Setting
     {
         /**
+         * The application
+         *
+         * @var
+         */
+        protected $app ;
+
+        /**
          * The settings data.
          *
          * @var array
@@ -33,8 +40,9 @@
          */
         protected $randomDefaultValue;
 
-        function __construct()
+        function __construct($app)
         {
+            $this->app = $app ;
             $this->randomDefaultValue = microtime( true );
         }
 
@@ -48,6 +56,10 @@
          */
         public function get( $key, $default = null )
         {
+            if(is_null($key)){
+                return $this->all();
+            }
+
             $this->loadSettingsIfNotLoaded();
 
             $value = array_get( $this->settings, $key, $this->randomDefaultValue );
@@ -78,10 +90,6 @@
                     case 'null':
                     case '(null)':
                         return null;
-                }
-
-                if ( starts_with( $value, '"' ) && starts_with( $value, '"' ) ) {
-                    $value = substr( $value, 1, -1 );
                 }
 
                 return $value ;
