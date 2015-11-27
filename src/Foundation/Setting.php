@@ -81,8 +81,10 @@
                 }
 
                 if ( starts_with( $value, '"' ) && starts_with( $value, '"' ) ) {
-                    return substr( $value, 1, -1 );
+                    $value = substr( $value, 1, -1 );
                 }
+
+                return $value ;
             }
 
             return $default;
