@@ -28,7 +28,7 @@ class SettingServiceProvider extends ServiceProvider
             __DIR__ . '/../config/setting.php' => config_path( 'setting.php' ),
         ] );
 
-        $this->app->bind( 'Amiya\Setting\Foundation\Setting', function ( $app ) {
+        $this->app->singleton( 'Amiya\Setting\Foundation\Setting', function ( $app ) {
             return new JsonSetting( $app, config( 'setting.path' ) . '/' . config( 'setting.filename' ) );
         } );
 
