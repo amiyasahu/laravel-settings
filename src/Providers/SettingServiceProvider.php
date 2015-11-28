@@ -8,6 +8,13 @@ class SettingServiceProvider extends ServiceProvider
 {
 
     /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
      * Bootstrap the application events.
      *
      * @return void
@@ -32,5 +39,15 @@ class SettingServiceProvider extends ServiceProvider
             return new JsonSetting( $app, config( 'setting.path' ) . '/' . config( 'setting.filename' ) );
         } );
 
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [ 'Amiya\Setting\Foundation\Setting' ];
     }
 }

@@ -19,6 +19,7 @@ class SaveSettingsMiddleware
 
     public function terminate( $request, $response )
     {
-        $this->setting->save();
+        if ( config( 'setting.autosave' ) )
+            $this->setting->save();
     }
 }
